@@ -1,0 +1,23 @@
+---
+- hosts: localhost
+  become: true
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install packages
+      apt:
+        name:
+          - vim
+          - git
+          - curl
+          - wget
+        state: present
+        update_cache: yes #  You can put this here or in the separate update task as above.  It's slightly more efficient to do it separately if you have multiple package installation tasks.
+
+    - name: Ensure Python3 is installed (often needed for other tools)
+      apt:
+        name: python3
+        state: present
+        update_cache: yes #  Again, optional here if already done above.

@@ -14,6 +14,7 @@
           - curl
           - wget
           - btop
+          - nginx
         state: present
         update_cache: yes #  You can put this here or in the separate update task as above.  It's slightly more efficient to do it separately if you have multiple package installation tasks.
 

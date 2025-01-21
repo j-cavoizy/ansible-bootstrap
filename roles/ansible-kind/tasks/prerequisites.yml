@@ -8,6 +8,7 @@
   with_items:
     - https://packages.cloud.google.com/apt/doc/apt-key.gpg
     - https://download.docker.com/linux/ubuntu/gpg
+    - https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key
   tags:
     - install
 
@@ -18,7 +19,7 @@
   become: true
   with_items:
     - "deb https://download.docker.com/linux/ubuntu focal stable"
-    - "deb https://apt.kubernetes.io/ kubernetes-xenial main"
+    - "deb https://pkgs.k8s.io/core:/stable:/v1.31/deb/ /"
   tags:
     - install
 

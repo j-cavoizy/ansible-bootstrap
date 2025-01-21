@@ -49,7 +49,6 @@
 - name: Installation will be skipped
   debug:
     msg: "Installation will be skipped, the version {{ kind_version }} specified is already installed!"
-  when: kind_status.stat.exists && kind_version == kind_installed_version.stdout
+  when: kind_status.stat.exists and kind_version == kind_installed_version.stdout
   tags:
     - install
-

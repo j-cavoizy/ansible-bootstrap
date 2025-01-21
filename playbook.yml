@@ -1,6 +1,12 @@
 ---
 - hosts: localhost
   become: true
+  vars:
+    kind_install_dir: "/usr/local/bin"
+    kind_version: latest
+    kind_git: "https://api.github.com/repos/kubernetes-sigs/kind"
+    kind_repo: "https://kind.sigs.k8s.io/dl/{{ kind_version }}/kind-linux-amd64"
+
   tasks:
     - name: Update apt cache
       apt:
@@ -23,3 +29,5 @@
         name: python3
         state: present
         update_cache: yes #  Again, optional here if already done above.
+  roles:
+    - roles/ansible-kind

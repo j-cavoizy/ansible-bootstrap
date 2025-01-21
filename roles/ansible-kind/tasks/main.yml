@@ -23,7 +23,7 @@
 
 - name: Install kind
   include_tasks: install.yml
-  when: not kind_status.stat.exists || kind_version != kind_installed_version.stdout
+  when: not kind_status.stat.exists or kind_version != kind_installed_version.stdout
   tags:
     - install
 

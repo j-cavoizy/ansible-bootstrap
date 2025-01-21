@@ -1,5 +1,4 @@
 ---
-
 - name: Check if OS distribution is some Debian kind
   fail:
     msg: "OS distribution {{ ansible_os_family }} is not Debian family!"
@@ -23,7 +22,7 @@
     - delete
 
 - name: Check installed kind version
-  shell: "{{ kind_install_dir }}/kind --version | awk -F ' ' '{print \"v\"$3}'"
+  shell: '{{ kind_install_dir }}/kind --version | awk -F '' '' ''{print "v"$3}'''
   changed_when: false
   register: kind_installed_version
   when: kind_status.stat.exists
@@ -50,6 +49,7 @@
 - name: Installation will be skipped
   debug:
     msg: "Installation will be skipped, the version {{ kind_version }} specified is already installed!"
-  when: kind_version == kind_installed_version.stdout
+  when: kind_status.stat.exists && kind_version == kind_installed_version.stdout
   tags:
     - install
+

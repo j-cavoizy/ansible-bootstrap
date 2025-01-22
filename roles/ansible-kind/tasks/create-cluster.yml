@@ -34,13 +34,13 @@
   file:
     mode: "0755"
     ##path: "{{ ansible_env.HOME }}/.kube"
-    path: "/{{ lookup('env', 'HOME') }}/.kube"
+    path: "/root/.kube"
     state: directory
   tags:
     - create
 
 - name: Generate kubeconfig file
-  shell: "kind get kubeconfig > /{{ lookup('env', 'HOME') }}/.kube/config"
+  shell: "kind get kubeconfig > /root/.kube/config"
   register: kubeconfig_output
   tags:
     - create

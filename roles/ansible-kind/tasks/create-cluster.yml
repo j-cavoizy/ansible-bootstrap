@@ -21,15 +21,23 @@
 - name: Create .kube directory
   file:
     mode: "0755"
-    path: "{{ ansible_env.HOME }}/.kube"
+    ##path: "{{ ansible_env.HOME }}/.kube"
+    path: "/root/.kube"
     state: directory
+  tags:
+    - create
 
 - name: Generate kubeconfig file
   shell: "kind get kubeconfig"
   register: kubeconfig_output
+  tags:
+    - create
 
 - name: Save kubeconfig to file
   copy:
     content: "{{ kubeconfig_output.stdout }}"
-    dest: " {{ ansible_env.HOME }}/.kube/config"
+    dest: "root/.kube/config"
+    ##dest: " {{ ansible_env.HOME }}/.kube/config"
     mode: "0600"
+  tags:
+    - create

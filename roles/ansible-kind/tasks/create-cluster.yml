@@ -18,6 +18,18 @@
   tags:
     - create
 
+- name: plouf
+  setup:
+    gather_subset: env
+  tags:
+    - create
+
+- name: env value
+  debug:
+    msg: "Home {{ ansible_env.HOME }} or {{ lookup('env', 'HOME') }}"
+  tags:
+    - create
+
 - name: Create .kube directory
   file:
     mode: "0755"

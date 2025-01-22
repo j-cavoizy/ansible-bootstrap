@@ -26,7 +26,7 @@
 
 - name: env value
   debug:
-    msg: "Home {{ ansible_env.HOME }} or {{ lookup('env', 'HOME') }}"
+    msg: "Home {{ lookup('env', 'HOME') }}"
   tags:
     - create
 

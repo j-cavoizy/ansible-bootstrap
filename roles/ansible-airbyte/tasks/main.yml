@@ -1,0 +1,42 @@
+---
+- name: Download Helm command line tool
+  ansible.builtin.uri:
+    url: https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+    return_content: true
+  register: helm_installer
+  tags:
+    - install_airbyte
+
+- name: Install Helm
+  ansible.builtin.command:
+    cmd: bash
+    stdin: "{{ helm_installer.content }}"
+    creates: /usr/local/bin/helm
+  environment:
+    DESIRED_VERSION: "{{ helm_version | default('') }}"
+  tags:
+    - install_airbyte
+
+- name: airbyte helm repo add
+  kubernetes.core.helm_repository:
+    name: airbyte
+    repo_url: https://airbytehq.github.io/helm-charts
+  tags:
+    - install_airbyte
+
+- name: Create airbyte namespace
+  kubernetes.core.k8s:
+    name: airbyte
+    api_version: v1
+    kind: Namespace
+    state: present
+  tags:
+    - install_airbyte
+
+- name: Install airbyte
+  kubernetes.core.helm:
+    name: airbyte
+    chart_ref: airbyte/airbyte
+    release_namespace: airbyte
+  tags:
+    - install_airbyte

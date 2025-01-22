@@ -32,3 +32,4 @@
         update_cache: yes #  Again, optional here if already done above.
   roles:
     - roles/ansible-kind
+    - roles/ansible-airbyte

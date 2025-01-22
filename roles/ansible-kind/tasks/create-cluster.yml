@@ -28,7 +28,7 @@
     - create
 
 - name: Generate kubeconfig file
-  shell: "kind get kubeconfig"
+  shell: "kind get kubeconfig > /root/.kube/config"
   register: kubeconfig_output
   tags:
     - create
@@ -36,7 +36,7 @@
 - name: Save kubeconfig to file
   copy:
     content: "{{ kubeconfig_output.stdout }}"
-    dest: "root/.kube/config"
+    dest: "/root/.kube/config"
     ##dest: " {{ ansible_env.HOME }}/.kube/config"
     mode: "0600"
   tags:

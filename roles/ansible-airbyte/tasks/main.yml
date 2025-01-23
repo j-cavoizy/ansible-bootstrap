@@ -38,5 +38,9 @@
     name: airbyte
     chart_ref: airbyte/airbyte
     release_namespace: airbyte
+    values:
+      service:
+        type: NodePort
+        port: 8080
   tags:
     - install_airbyte
